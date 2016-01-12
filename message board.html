@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+ <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+ <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"></script>
+<title>就是留言板練習</title>
+<script language="javascript"> 
+
+ function mySubmit()
+ {
+  if(myTitle.value!="") {
+
+   var yudan = "";
+   var now = new Date();
+   var month = now.getMonth() + 1;
+   var date = now.getDate();
+   var year = now.getYear();
+   var hours =now.getHours();
+   var minutes = now.getMinutes();
+   var seconds = now.getSeconds();
+   if (year < 2000) year = year + 1900;
+   if (month >= 3 && month <= 4) yudan = "春季 ";
+   if (month >= 5 && month <= 8) yudan = "夏季 ";
+   if (month >= 9 && month <= 10) yudan = "秋季 ";
+   if (month >= 11 || month <= 2) yudan = "冬季 ";
+   var timeValue = (hours >= 12) ? "下午 " : "上午 ";
+   timeValue += ((hours > 12) ? hours - 12 : hours) + " 時";
+   timeValue += ((minutes < 10) ? " 0" : " ") + minutes + " 分";
+   timeValue += ((seconds < 10) ? " 0" : " ") + seconds + " 秒";
+
+   //取得id為myMessage的位置
+   var myMessage = document.getElementById("myMessage");
+   //建<br></br><table></table>元素
+   var mybr = document.createElement("br");
+   var myTable = document.createElement("table");
+   myTable.className="table table-bordered";//在<table>指定css
+   // <tr>插入表格的最後
+   var myTitleTr = myTable.insertRow(-1);
+   myTitleTr.className="myTitleTr";//設定myTitleTr的css
+   // <td>插入myTitleTr的最後
+   var myTitleTd = myTitleTr.insertCell(-1);
+   myTitleTd.innerHTML = year + " 年 " + yudan + month + " 月 " + date + " 日 "+timeValue+" 標題: "+document.getElementById("myTitle").value ;
+   //myTable.id=year+month+date+hours+minutes+seconds;
+
+   
+      
+   var myContentTr = myTable.insertRow(-1);
+   var myContentTd = myContentTr.insertCell(-1);
+   myContentTd.innerHTML = document.getElementById("myContent").value; 
+
+   
+   //appendChild向節點的子節點列表的末尾添加新的子節點
+   myMessage.appendChild(mybr);
+   myMessage.appendChild(myTable);
+   document.getElementById("myTitle").value = "";
+   document.getElementById("myContent").value = "";
+
+   }
+
+ } 
+</script> 
+<style type="text/css"> 
+   body {padding-top: 60px;padding-bottom: 40px;}
+   .myTitleTr{ background-color:#CCDDFF; font-weight:bold; color:#444444; font-size:16px;}
+</style> 
+</head> 
+<body> 
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">留言板</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+        </div><!--/.navbar-collapse -->
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <form class="form-signin" >
+          <label for="inputTitle" class="sr-only">標題</label><br/>
+   <table>
+     <tr>
+      <td> 
+      <input type="text" id="myTitle" class="form-control" placeholder="標題" required autofocus/>
+      </td> 
+      </tr>
+     <br> 
+     <tr>
+      <td colspan="2">
+      <textarea class="form-control" id="myContent" cols="50" rows="5" placeholder="內文"></textarea>
+      </td>
+      </tr>
+     <br>
+     <tr>
+      <td >
+      <button id="123"class="btn btn-lg btn-primary btn-block" onClick="mySubmit();">新增留言</button>
+      </td> 
+     </tr> 
+    </table>
+   <div id="myMessage"></div> 
+ </form>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</body>
+</html>
